@@ -552,8 +552,11 @@ if hostenv != None:
 
 
 gold=list(set(promoted) - set(final_FLAG))
+write_list_a=[]
+write_list_b=[]
 
 print('Total objects meeting selection criteria (%i/%i):'%(len(promoted),(len(candidates.groups.keys()))))
+
 
 
 print('Interesting objects (%i/%i):'%(len(gold),(len(promoted))))
@@ -562,7 +565,7 @@ for i in gold:
 
 if len(final_FLAG)>0:
     print ('Flagged objects (large gap between photometry) (%i/%i):'%(len(final_FLAG),(len(promoted))))
-    for i in flagged:
+    for i in final_FLAG:
         print(i)
 
 
@@ -578,4 +581,20 @@ if hostenv!=None:
 
 
 
+
+
+
+out_file = open("GEYSERS_output.txt", "w")
+out_file.write('Interesting Objects:\n')
+for obj in gold:
+    out_file.write('https://ziggy.ucolick.org/yse/transient_detail/'+obj+'/\n')
+out_file.write('\n')
+out_file.write('Flagged Objects:\n')
+for obj in final_FLAG:
+     out_file.write('https://ziggy.ucolick.org/yse/transient_detail/'+obj+'/\n')
+for obj in nuclear:
+     out_file.write('https://ziggy.ucolick.org/yse/transient_detail/'+obj+'/\n')
+for obj in hostflag:
+     out_file.write('https://ziggy.ucolick.org/yse/transient_detail/'+obj+'/\n')
+out_file.close()
 
