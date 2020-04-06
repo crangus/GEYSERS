@@ -335,6 +335,7 @@ if len(rises[rises!= None])==0:
 
 
 if len(rises[rises!= None])>0:
+    FLAGGED=[]
     KEY_objects=[]
     print('Checking rise times')
     for sn in candidates.groups.keys():
@@ -420,10 +421,10 @@ if len(rises[rises!= None])>0:
         if riseband=='g':
             if not g_data.empty:
                 if g_data.mag.count()>1:
-                    rise=g_data.sort_values(by=['observed_date'],ascending=False).reset_index()
-                    if (np.round(rise.observed_date[0])-np.round(rise.observed_date[1]))>=1:
-                        if (np.round(rise.observed_date[0])-np.round(rise.observed_date[1]))<=6:
-                            g_rise=np.diff(rise.mag)/np.diff(rise.observed_date)
+                    riseg=g_data.sort_values(by=['observed_date'],ascending=False).reset_index()
+                    if (np.round(riseg.observed_date[0])-np.round(riseg.observed_date[1]))>=1:
+                        if (np.round(riseg.observed_date[0])-np.round(riseg.observed_date[1]))<=6:
+                            g_rise=np.diff(riseg.mag)/np.diff(riseg.observed_date)
                             if np.isnan(g_rise[0]) == False:
                                 if g_rise[0]>= risemin:
                                     if g_rise[0]<= risemax:
@@ -434,10 +435,10 @@ if len(rises[rises!= None])>0:
         if riseband=='r':
             if not r_data.empty:
                 if r_data.mag.count()>1:
-                    rise=r_data.sort_values(by=['observed_date'],ascending=False).reset_index()
-                    if (np.round(rise.observed_date[0])-np.round(rise.observed_date[1]))>=1:
-                        if (np.round(rise.observed_date[0])-np.round(rise.observed_date[1]))<=6:
-                            r_rise=np.diff(rise.mag)/np.diff(rise.observed_date)
+                    riser=r_data.sort_values(by=['observed_date'],ascending=False).reset_index()
+                    if (np.round(riser.observed_date[0])-np.round(riser.observed_date[1]))>=1:
+                        if (np.round(riser.observed_date[0])-np.round(riser.observed_date[1]))<=6:
+                            r_rise=np.diff(riser.mag)/np.diff(riser.observed_date)
                             if np.isnan(r_rise[0]) == False:
                                 if r_rise[0]>= risemin:
                                     if r_rise[0]<= risemax:
@@ -448,10 +449,10 @@ if len(rises[rises!= None])>0:
         if riseband=='i':
             if not i_data.empty:
                 if i_data.mag.count()>1:
-                    rise=g_data.sort_values(by=['observed_date'],ascending=False).reset_index()
-                    if (np.round(rise.observed_date[0])-np.round(rise.observed_date[1]))>=1:
-                        if (np.round(rise.observed_date[0])-np.round(rise.observed_date[1]))<=6:
-                            i_rise=np.diff(rise.mag)/np.diff(rise.observed_date)
+                    risei=g_data.sort_values(by=['observed_date'],ascending=False).reset_index()
+                    if (np.round(risei.observed_date[0])-np.round(risei.observed_date[1]))>=1:
+                        if (np.round(risei.observed_date[0])-np.round(risei.observed_date[1]))<=6:
+                            i_rise=np.diff(risei.mag)/np.diff(risei.observed_date)
                             if np.isnan(i_rise[0]) == False:
                                 if i_rise[0]>= risemin:
                                     if i_rise[0]<= risemax:
@@ -462,10 +463,10 @@ if len(rises[rises!= None])>0:
         if riseband=='z':
             if not z_data.empty:
                 if z_data.mag.count()>1:
-                    rise=z_data.sort_values(by=['observed_date'],ascending=False).reset_index()
-                    if (np.round(rise.observed_date[0])-np.round(rise.observed_date[1]))>=1:
-                        if (np.round(rise.observed_date[0])-np.round(rise.observed_date[1]))<=6:
-                            z_rise=np.diff(rise.mag)/np.diff(rise.observed_date)
+                    risez=z_data.sort_values(by=['observed_date'],ascending=False).reset_index()
+                    if (np.round(risez.observed_date[0])-np.round(risez.observed_date[1]))>=1:
+                        if (np.round(risez.observed_date[0])-np.round(risez.observed_date[1]))<=6:
+                            z_rise=np.diff(risez.mag)/np.diff(risez.observed_date)
                             if np.isnan(z_rise[0]) == False:
                                 if z_rise[0]>= risemin:
                                     if z_rise[0]<= risemax:
@@ -473,17 +474,20 @@ if len(rises[rises!= None])>0:
                                         if len(z_rise)==1:
                                             FLAGGED.append(sn)
 
+
+good_objects=list(set(key_objects) - set(KEY_objects))
+
 #Chicking host environments
 if hostenv == None:
-    promoted=KEY_objects
-    final_FLAG=FLAGGED
+    promoted=good_objects
+    final_FLAG=FLAGGED+flagged
 
 
 if hostenv != None:
     final_FLAG=[]
     promoted=[]
     print('Checking host environments')
-    if len(key_objects)==0:
+    if len(good_objects)==0:
         for sn in candidates.groups.keys():
             tempdata=candidates.get_group(sn).reset_index()
             successful=False
@@ -515,7 +519,7 @@ if hostenv != None:
                         key_objects.remove(sn)
 
 
-    if len(key_objects)>0:
+    if len(good_objects)>0:
         for sn in key_objects:
             tempdata=candidates.get_group(sn).reset_index()
             successful=False
