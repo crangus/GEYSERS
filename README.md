@@ -7,6 +7,7 @@ This script requires python 3 and astropy, alongside other classical libraries l
 
 To run the script, you must have an output .csv from the YSE-PZ SQL Explorer: 
 https://ziggy.ucolick.org/yse/explorer/ 
+
 There is a pre-written query, 'DARK_YSE_Recent_Transients' which grabs data from all transients within the last 20 days (we can change this if requested). Run this query and download the output .csv file from. Save it into the GEYERS-master folder.  
 The main code is the 'GEYSERS.py' script and can be easily launched from the shell as such:
 
