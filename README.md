@@ -1,5 +1,5 @@
 # GEYSERS
-Getting Exciting Young Supernova Experiment Recent Supernovae (GEYSERS) - version 0.1
+Getting Exciting Young Supernova Experiment Recent Supernovae (GEYSERS) - version 0.2
 
 Python script for grabbing recent transients from YSE-PZ with properties you're interested in (i.e. of a specific colour, rise time, host environment).
 
