@@ -1,0 +1,22 @@
+SELECT DISTINCT	t.name,
+t.ra,
+                t.dec,
+                pd.obs_date AS `observed_date`,
+                TO_DAYS(pd.obs_date) AS `count_date`,
+                pb.name AS `filter`,  
+             	pd.mag,
+                pd.mag_err,
+                pd.forced,
+                pd.data_quality_id,
+                h.photo_z
+FROM YSE_App_transient t
+INNER JOIN YSE_App_transientphotometry tp ON tp.transient_id = t.id
+INNER JOIN YSE_App_transientphotdata pd ON pd.photometry_id = tp.id
+INNER JOIN YSE_App_photometricband pb ON pb.id = pd.band_id
+INNER JOIN YSE_App_host h ON h.id = t.host_id
+INNER JOIN YSE_App_transient_tags tt ON tt.transient_id = t.id
+INNER JOIN YSE_App_transienttag tg ON tg.id = tt.transienttag_id
+WHERE tg.name = 'YSE' AND t.disc_date IS NOT NULL
+AND TO_DAYS(CURDATE())- TO_DAYS(t.disc_date) <10
+ORDER BY t.name ASC,
+         TO_DAYS(pd.obs_date) DESC;
