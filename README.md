@@ -44,7 +44,7 @@ The selection options are as follows. All colour and rise properties are limits 
       --absmagrange The allowed range of peak absolute magnitude for transient. Defualt set to +/- 0.1
       --absmaglowlim Option to treat absolute magnitude value as as lower limit to brightness ("True"/"False"). Default is False
       --maglim      The limit for faintest objects of interest (all bands). Default is set to 20.0 unless specified 
-      --telescope   Telescope for spectroscopic observations. Changes maglim and hostmagdiff values according. Current options "NOT"/"Asiagio"/"VLT"
+      --telescope   Telescope for spectroscopic observations. Changes maglim and hostmagdiff values according. Current options "NOT"/"Asiago"/"VLT"
       --showall     Option to print all good and partial candidate matches to terminal ("True"/"False")
   
 
