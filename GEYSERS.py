@@ -1076,9 +1076,4 @@ out_file.write('\n')
 out_file.write('Marginal match candidates:\n')
 for obj in silver:
      out_file.write('https://ziggy.ucolick.org/yse/transient_detail/'+obj+'/\n')
-# for obj in nuclear:
-#      out_file.write('https://ziggy.ucolick.org/yse/transient_detail/'+obj+'/\n')
-# for obj in hostflag:
-#      out_file.write('https://ziggy.ucolick.org/yse/transient_detail/'+obj+'/\n')
-# out_file.close()
 
